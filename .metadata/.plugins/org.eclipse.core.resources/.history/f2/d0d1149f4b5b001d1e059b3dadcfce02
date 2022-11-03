@@ -1,0 +1,30 @@
+/*
+ * fsm_manual.c
+ *
+ *  Created on: Nov 3, 2022
+ *      Author: Minh Duc Quach
+ */
+
+#include "fsm_manual.h"
+
+void fsm_manual_run(){
+	switch(status){
+	case RED_MOD:
+		if (isButtonPressed(0)){
+			status = AMBER_MOD;
+		}
+		break;
+	case AMBER_MOD:
+		if (isButtonPressed(0)){
+			status = GREEN_MOD;
+		}
+		break;
+	case GREEN_MOD:
+		if (isButtonPressed(0)){
+			status = NORMAL;
+		}
+		break;
+	default:
+		break;
+	}
+}

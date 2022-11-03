@@ -1,0 +1,15 @@
+/*
+ * display.c
+ *
+ *  Created on: Nov 2, 2022
+ *      Author: Minh Duc Quach
+ */
+
+#include "global.h"
+#include "display.h"
+
+void clearLEDs(){
+	HAL_GPIO_WritePin(GPIOA, RED_1_Pin|AMBER_1_Pin|GREEN_1_Pin|RED_2_Pin
+	                          |AMBER_2_Pin|GREEN_2_Pin|EN0_Pin|EN1_Pin
+	                          |EN2_Pin|EN3_Pin, GPIO_PIN_SET);
+}

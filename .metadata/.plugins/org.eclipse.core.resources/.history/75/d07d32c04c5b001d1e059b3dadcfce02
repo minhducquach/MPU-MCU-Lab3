@@ -1,0 +1,60 @@
+/*
+ * fsm_manual.c
+ *
+ *  Created on: Nov 3, 2022
+ *      Author: Minh Duc Quach
+ */
+
+#include "fsm_manual.h"
+
+void fsm_manual_run(){
+	switch(status){
+	case RED_MOD:
+		if (timerFlag[TOP_BOTTOM] == 1){
+			blinkLEDs(TOP_BOTTOM, RED);
+			setTimer(TOP_BOTTOM, 500);
+		}
+		if (timerFlag[LEFT_RIGHT] == 1){
+			blinkLEDs(LEFT_RIGHT, RED);
+			setTimer(LEFT_RIGHT, 500);
+		}
+		if (isButtonPressed(0)){
+			openAllLEDs();
+			status = AMBER_MOD;
+			setTimer(TOP_BOTTOM, 500);
+			setTimer(LEFT_RIGHT, 500);
+		}
+		break;
+	case AMBER_MOD:
+		if (timerFlag[TOP_BOTTOM] == 1){
+			blinkLEDs(TOP_BOTTOM, AMBER);
+			setTimer(TOP_BOTTOM, 500);
+		}
+		if (timerFlag[LEFT_RIGHT] == 1){
+			blinkLEDs(LEFT_RIGHT, AMBER);
+			setTimer(LEFT_RIGHT, 500);
+		}
+		if (isButtonPressed(0)){
+			openAllLEDs();
+			status = GREEN_MOD;
+			setTimer(TOP_BOTTOM, 500);
+			setTimer(LEFT_RIGHT, 500);
+		}
+		break;
+	case GREEN_MOD:
+		if (timerFlag[TOP_BOTTOM] == 1){
+			blinkLEDs(TOP_BOTTOM, GREEN);
+			setTimer(TOP_BOTTOM, 500);
+		}
+		if (timerFlag[LEFT_RIGHT] == 1){
+			blinkLEDs(LEFT_RIGHT, GREEN);
+			setTimer(LEFT_RIGHT, 500);
+		}
+		if (isButtonPressed(0)){
+			status = NORMAL;
+		}
+		break;
+	default:
+		break;
+	}
+}

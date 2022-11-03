@@ -1,0 +1,18 @@
+/*
+ * software_timer.h
+ *
+ *  Created on: Nov 2, 2022
+ *      Author: Minh Duc Quach
+ */
+
+#ifndef INC_SOFTWARE_TIMER_H_
+#define INC_SOFTWARE_TIMER_H_
+
+#include "global.h"
+
+extern int timer_flag;
+
+void setTimer();
+void timerRun();
+
+#endif /* INC_SOFTWARE_TIMER_H_ */

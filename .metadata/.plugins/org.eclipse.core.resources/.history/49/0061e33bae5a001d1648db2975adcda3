@@ -1,0 +1,17 @@
+/*
+ * software_timer.c
+ *
+ *  Created on: Nov 2, 2022
+ *      Author: Minh Duc Quach
+ */
+
+#include "global.h"
+#include "software_timer.h"
+
+void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim){
+	if(htim->Instance == TIM2){
+		timerRun();
+		button_reading();
+	}
+}
+

@@ -1,0 +1,35 @@
+/*
+ * global.h
+ *
+ *  Created on: Nov 2, 2022
+ *      Author: Minh Duc Quach
+ */
+
+#ifndef INC_GLOBAL_H_
+#define INC_GLOBAL_H_
+
+#include <fsm_automatic.h>
+#include "display.h"
+#include "input_reading.h"
+#include "software_timer.h"
+#include "main.h"
+
+#define	ALL			0
+#define TOP_BOTTOM	1
+#define LEFT_RIGHT	2
+
+#define INIT		4
+#define RED			5
+#define AMBER		6
+#define GREEN		7
+
+#define MODE		10
+#define TIMER		11
+
+#define RED_MOD		15
+#define	AMBER_MOD	16
+#define GREEN_MOD	17
+
+extern int status;
+
+#endif /* INC_GLOBAL_H_ */

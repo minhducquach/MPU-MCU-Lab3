@@ -1,0 +1,38 @@
+/*
+ * input_reading.c
+ *
+ *  Created on: Nov 2, 2022
+ *      Author: Minh Duc Quach
+ */
+
+#include "input_reading.h"
+#include "global.h"
+
+#define N0_OF_BUTTONS 				       3
+#define BUTTON_IS_PRESSED                  GPIO_PIN_RESET
+#define BUTTON_IS_RELEASED                 GPIO_PIN_SET
+
+static GPIO_PinState buttonBuffer[N0_OF_BUTTONS];
+
+static GPIO_PinState debounceButtonBuffer1[N0_OF_BUTTONS];
+static GPIO_PinState debounceButtonBuffer2[N0_OF_BUTTONS];
+static GPIO_PinState debounceButtonBuffer3[N0_OF_BUTTONS];
+
+void button_reading(){
+	for(char i = 0; i < N0_OF_BUTTONS; i ++){
+		debounceButtonBuffer3[i] = debounceButtonBuffer2[i];
+		debounceButtonBuffer2[i] = debounceButtonBuffer1[i];
+		if (i == 0) debounceButtonBuffer1[i] = HAL_GPIO_ReadPin(Button1_GPIO_Port, Button1_Pin);
+		else if (i == 1) debounceButtonBuffer1[i] = HAL_GPIO_ReadPin(Button2_GPIO_Port, Button2_Pin);
+		else if (i == 2) debounceButtonBuffer1[i] = HAL_GPIO_ReadPin(Button3_GPIO_Port, Button3_Pin);
+		if(debounceButtonBuffer3[i] == debounceButtonBuffer2[i] && debounceButtonBuffer2[i] == debounceButtonBuffer1[i]){
+			buttonBuffer[i] = debounceButtonBuffer1[i];
+		}
+	}
+}
+
+int isButtonPressed(int index){
+	if(index >= N0_OF_BUTTONS) return 0;
+	return (buttonBuffer[index] == BUTTON_IS_PRESSED ? 1 : 0);
+}
+

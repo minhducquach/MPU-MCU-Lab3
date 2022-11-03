@@ -1,0 +1,17 @@
+/*
+ * global.h
+ *
+ *  Created on: Nov 2, 2022
+ *      Author: Minh Duc Quach
+ */
+
+#ifndef INC_GLOBAL_H_
+#define INC_GLOBAL_H_
+
+#include "display.h"
+#include "fsm.h"
+#include "input_reading.h"
+#include "input_processing.h"
+#include "software_timer.h"
+
+#endif /* INC_GLOBAL_H_ */

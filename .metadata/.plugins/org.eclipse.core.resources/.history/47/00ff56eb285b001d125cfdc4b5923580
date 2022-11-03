@@ -1,0 +1,120 @@
+/*
+ * fsm.c
+ *
+ *  Created on: Nov 2, 2022
+ *      Author: Minh Duc Quach
+ */
+
+
+#include "global.h"
+#include "fsm_automatic.h"
+
+int flag = 0;
+
+void fsm_automatic_run(){
+		switch(status){
+		case INIT:
+//			clear7SEGs();
+//			clearEN();
+//			clearLEDs(0);
+//			clearLEDs(1);
+//	//		if (isButtonPressed(0)){
+//				status[i] = NORMAL;
+//	//		}
+			break;
+		case NORMAL:
+//			clearLEDs(i);
+//			if (i == 0){
+////				status[i] = RED;
+////				setTimer(i, red_duration);
+//			}
+//			else if (i == 1){
+//				status[i] = GREEN;
+//				setTimer(i, green_duration);
+//			}
+			clearLEDs(TOP_BOTTOM);
+			clearLEDs(LEFT_RIGHT);
+			status = RED;
+			setTimer(TOP_BOTTOM, red_duration);
+			setTimer(LEFT_RIGHT, green_duration);
+			break;
+		case RED:
+//			if (i == 0){
+////				clearLEDs(0);
+////				setLEDs(TOP_BOTTOM, RED);
+//			}
+//			else if (i == 1){
+//				clearLEDs(1);
+//				setLEDs(LEFT_RIGHT, RED);
+//			}
+//			if (timerFlag[i] == 1){
+//				status[i] = GREEN;
+//				setTimer(i, green_duration);
+//			}
+			setLEDs(TOP_BOTTOM, RED);
+			if (flag == 0) setLEDs(LEFT_RIGHT, GREEN);
+			else if (flag == 1){
+				setLEDs(LEFT_RIGHT, AMBER);
+			}
+			if (timerFlag[LEFT_RIGHT] == 1){
+				flag = 1;
+				clearLEDs(LEFT_RIGHT);
+				setLEDs(LEFT_RIGHT, AMBER);
+				setTimer(LEFT_RIGHT, amber_duration);
+			}
+			if (timerFlag[TOP_BOTTOM] == 1){
+				clearLEDs(TOP_BOTTOM);
+				setTimer(TOP_BOTTOM, green_duration);
+				status = GREEN;
+				clearLEDs(LEFT_RIGHT);
+				setTimer(LEFT_RIGHT, red_duration);
+				flag = 0;
+			}
+			break;
+		case AMBER:
+//			if (i == 0){
+////				clearLEDs(0);
+////				setLEDs(TOP_BOTTOM, AMBER);
+//			}
+//			else if (i == 1){
+//				clearLEDs(1);
+//				setLEDs(LEFT_RIGHT, AMBER);
+//			}
+//			if (timerFlag[i] == 1){
+//				status[i] = RED;
+//				setTimer(i, red_duration);
+//			}
+			setLEDs(TOP_BOTTOM, AMBER);
+			if (timerFlag[TOP_BOTTOM] == 1){
+				clearLEDs(TOP_BOTTOM);
+				setTimer(TOP_BOTTOM, red_duration);
+				status = RED;
+				clearLEDs(LEFT_RIGHT);
+				setTimer(LEFT_RIGHT, green_duration);
+			}
+			break;
+		case GREEN:
+//			if (i == 0){
+////				clearLEDs(0);
+////				setLEDs(TOP_BOTTOM, GREEN);
+//			}
+//			else if (i == 1){
+//				clearLEDs(1);
+//				setLEDs(LEFT_RIGHT, GREEN);
+//			}
+//			if (timerFlag[i] == 1){
+//				status[i] = AMBER;
+//				setTimer(i, amber_duration);
+//			}
+			setLEDs(TOP_BOTTOM, GREEN);
+			setLEDs(LEFT_RIGHT, RED);
+			if (timerFlag[TOP_BOTTOM] == 1){
+				clearLEDs(TOP_BOTTOM);
+				setTimer(TOP_BOTTOM, amber_duration);
+				status = AMBER;
+			}
+			break;
+		default:
+			break;
+		}
+	}
